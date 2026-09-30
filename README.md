@@ -24,7 +24,8 @@ estão prontas em `assets/img`.
 
 ```
 materiais-de-origem/
-  logo/          Modelle Logo.jpg (150 x 150 px)
+  logo/          modelle-transparente.png (2146 x 733, letreiro branco com relevo, fundo transparente; usado)
+                 Modelle Logo.jpg (150 x 150, quadrado dourado; primeira versão recebida, não usado)
   fotos/         dez capturas de tela do Instagram da loja
 ```
 
@@ -85,8 +86,8 @@ dessas duas avaliações e diz isso no texto de apoio.
 
 ## Direção visual
 
-Vitrine de boutique: fundo creme (o brilho do logo), o letreiro do logo sem o
-fundo dourado, textos em marrom-café,
+Vitrine de boutique: cabeçalho escuro com o letreiro branco do logo, fundo
+creme (o brilho do primeiro logo), textos em marrom-café,
 dourado só em detalhes finos (traços, moldura da foto do hero, estrelas,
 destaques dos títulos) e uma seção escura para as bolsas, onde o dourado das
 peças aparece melhor. Os looks ficam em duas fileiras de três fotos, "Para o
@@ -98,7 +99,7 @@ efeitos de vidro, sem emojis como ícones.
 
 | Ordem | Seção | Âncora | Conteúdo |
 | --- | --- | --- | --- |
-| 1 | Cabeçalho | | Letreiro do logo, navegação e CTA de WhatsApp. Fixo no topo |
+| 1 | Cabeçalho | | Escuro, com o logo branco, navegação e CTA dourado de WhatsApp. Fixo no topo |
 | 2 | Hero | `#inicio` | "Moda que valoriza você", dois botões, nota 5 no Google e foto da loja |
 | 3 | Looks | `#looks` | Duas fileiras de três fotos: dia a dia e ocasiões especiais, com botão e link para o Instagram |
 | 4 | Bolsas e acessórios | `#bolsas` | Seção escura com três fotos de bolsas de palha |
@@ -119,8 +120,7 @@ assets/css/styles.css            estilos (tokens de cor e tipografia no topo)
 assets/js/main.js                menu e revelação na rolagem
 assets/img/                      imagens otimizadas (geradas pelos scripts)
 assets/fonts/                    Prata e Outfit (arquivos locais)
-tools/optimize-images.py         gera as fotos de assets/img a partir dos originais
-tools/logo/letreiro.svg          letreiro "Modelle" vetorizado a partir do logo, sem o fundo
+tools/optimize-images.py         gera as fotos e o logo de assets/img a partir dos originais
 tools/render-compartilhamento.js gera os ícones e a imagem de compartilhamento pelo Chromium
 materiais-de-origem/             arquivos do cliente (só na pasta local, fora do git)
 ```
@@ -158,24 +158,21 @@ Observações:
 
 ### Logo
 
-O logo veio em JPG de 150 x 150 px: quadrado dourado metálico com o nome em
-letra cursiva branca. A pedido do cliente, a página **não usa o fundo
-dourado**: só o letreiro "Modelle", que foi vetorizado a partir do arquivo
-recebido (ampliado 8 vezes, suavizado e traçado com potrace) e está em
-`tools/logo/letreiro.svg`. O desenho das letras é o do logo; nada foi
-redesenhado. O letreiro é a mesma marca que aparece na parede da loja, na foto
-do hero.
+Foram recebidas duas versões. A primeira, JPG de 150 x 150 px com o nome em
+letra cursiva branca sobre um quadrado dourado, serviu para definir a paleta.
+A segunda, enviada durante o projeto com o pedido de usá-la, é um PNG de
+2146 x 733 px, só o letreiro branco com relevo cinza, sobre fundo
+transparente. É a que está na página.
 
-Por ser vetor com `fill="currentColor"`, ele toma a cor do lugar em que está:
-marrom-café no cabeçalho (40 px de altura no celular, 46 px no desktop, 34 px
-em telas de até 359 px), dourado claro no rodapé, marrom-café sobre creme nos
-ícones do site e na imagem de compartilhamento. Fica nítido em qualquer
-densidade de tela.
+Como o letreiro é branco, o cabeçalho passou a ser escuro (marrom-café, como
+o rodapé), com o menu em tom claro e o botão de WhatsApp dourado. O script
+recorta a margem vazia e gera as larguras de 720 e 360 px; o cabeçalho mostra
+o logo com 44 px de altura no desktop (40 no celular, 34 em telas de até
+359 px), o rodapé com 58 px. Os ícones do site e a imagem de compartilhamento
+colocam o letreiro sobre o marrom-café.
 
-Para trocar, substitua o `<path>` nos dois `<svg>` do `index.html` (classes
-`brand__mark` e `footer__mark`) e em `tools/logo/letreiro.svg`, e rode
-`node tools/render-compartilhamento.js`. O original está em
-`materiais-de-origem/logo/`.
+Antes do PNG, a página teve uma versão com o quadrado dourado do JPG e outra
+com o letreiro vetorizado por código. As duas foram removidas.
 
 ## Como atualizar o conteúdo
 
@@ -202,7 +199,7 @@ Mensagens de WhatsApp, conforme o ponto da página:
 Para gerar as imagens (requer Pillow e a pasta `materiais-de-origem/`):
 
 ```bash
-python3 tools/optimize-images.py        # fotos
+python3 tools/optimize-images.py        # fotos e logo
 node tools/render-compartilhamento.js   # ícones e imagem de compartilhamento (requer Node e Playwright)
 ```
 
@@ -234,7 +231,7 @@ os visitantes recebam a versão nova.
 | `--cream` | `#FDF7EB` | brilho do logo: fundo claro principal |
 | `--gold-700` | `#7D652C` | dourado escurecido: destaques dos títulos e rótulos sobre fundo claro |
 | `--sand`, `--white`, `--line` | `#F4ECDC`, `#FFFDF9`, `#E6DCC8` | fundos claros e linhas |
-| `--espresso`, `--espresso-700` | `#2A241C`, `#3B3225` | marrom-café: seção "Bolsas", chamada final, rodapé, botões e textos |
+| `--espresso`, `--espresso-700` | `#2A241C`, `#3B3225` | marrom-café: cabeçalho, seção "Bolsas", chamada final, rodapé, botões e textos |
 | `--ink-soft`, `--mist` | `#625A4C`, `#C9BFAE` | textos secundários sobre claro e sobre escuro |
 | `--whatsapp` | `#25D366` | verde oficial do WhatsApp, usado só no botão flutuante |
 
@@ -303,11 +300,11 @@ verificado se o número responde no WhatsApp.
 | --- | --- |
 | Versão inicial da página | todos |
 | Logo sem o fundo dourado: letreiro vetorizado no cabeçalho, rodapé, ícones e imagem de compartilhamento | `index.html`, `styles.css`, `tools/`, `assets/img` |
+| Logo em PNG transparente recebido: substitui o letreiro vetorizado; cabeçalho escuro | `index.html`, `styles.css`, `tools/`, `assets/img` |
 
 ## Créditos e licenças
 
-- Logo, fotos e avaliações: fornecidos pelo cliente. Letreiro vetorizado para
-  este projeto a partir do logo recebido.
+- Logo, fotos e avaliações: fornecidos pelo cliente.
 - Ícones: criados para este projeto. Ícone do WhatsApp: Simple Icons (CC0).
 - Prata e Outfit: SIL Open Font License 1.1, obtidas do Google Fonts e
   hospedadas localmente.
@@ -315,8 +312,8 @@ verificado se o número responde no WhatsApp.
 
 ## Pendências que dependem do cliente
 
-- **Logo em alta resolução ou em vetor**, para conferir a vetorização do
-  letreiro (feita a partir de um arquivo de 150 px).
+- Logo em vetor (SVG, AI ou PDF), se existir. O PNG recebido é bom para o
+  site; o vetor serviria para impressos.
 - **Direito de uso das fotos de catálogo.** Nove das dez fotos parecem
   imagens dos fornecedores. Vale confirmar se a loja pode usá-las no site.
 - **Fotos da loja** (fachada, interior, provadores, vitrine) e das peças na

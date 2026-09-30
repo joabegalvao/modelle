@@ -1,5 +1,5 @@
-// Gera, a partir de tools/logo/letreiro.svg, das fontes e das fotos do site:
-//   assets/img/favicon-32.png, icon-192.png, apple-touch-icon.png   o letreiro sobre o creme da página
+// Gera, a partir do logo (assets/img/logo-modelle-720.png), das fontes e das fotos do site:
+//   assets/img/favicon-32.png, icon-192.png, apple-touch-icon.png   o letreiro sobre o marrom-café
 //   assets/img/compartilhamento.jpg                                   1200x630 para WhatsApp e redes
 //
 // Uso (na raiz do projeto, depois de python3 tools/optimize-images.py):
@@ -17,9 +17,7 @@ const { chromium } = require(playwrightModule);
 
 const root = path.resolve(__dirname, '..');
 const out = path.join(root, 'assets/img');
-const lettering = fs.readFileSync(path.join(root, 'tools/logo/letreiro.svg'), 'utf8');
-// o letreiro herda a cor do elemento pai (fill="currentColor")
-const mark = (width) => lettering.replace(/width="[\d.]+" height="[\d.]+"/, `width="${width}" height="auto"`);
+const mark = (width) => `<img src="file://${path.join(out, 'logo-modelle-720.png')}" style="width:${width}px;height:auto;display:block" alt="">`;
 
 const fontFace = (family, file) => `@font-face { font-family: "${family}"; src: url("file://${path.join(root, 'assets/fonts', file)}") format("woff2"); font-weight: 300 700; }`;
 const fonts = [fontFace('Prata', 'prata-normal-latin.woff2'), fontFace('Outfit', 'outfit-normal-latin.woff2')].join('\n');
@@ -28,7 +26,7 @@ const photo = fs.readdirSync(out).filter((f) => /^loja-vestido-floral-\d+\.jpg$/
 
 const icon = (size, width) => ({
   w: size, h: size,
-  html: `<div style="width:${size}px;height:${size}px;background:#fdf7eb;color:#2a241c;display:grid;place-items:center">${mark(width)}</div>`,
+  html: `<div style="width:${size}px;height:${size}px;background:#2a241c;display:grid;place-items:center">${mark(width)}</div>`,
 });
 
 const pages = {
@@ -37,11 +35,11 @@ const pages = {
   apple: { ...icon(180, 156), file: 'apple-touch-icon.png' },
   card: {
     w: 1200, h: 630, file: 'compartilhamento.jpg', jpeg: true,
-    html: `<div style="width:1200px;height:630px;display:grid;grid-template-columns:620px 580px;background:#fdf7eb;color:#2a241c;font-family:Outfit,sans-serif">
+    html: `<div style="width:1200px;height:630px;display:grid;grid-template-columns:620px 580px;background:#2a241c;color:#fffdf9;font-family:Outfit,sans-serif">
       <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 60px">
-        <div style="color:#2a241c">${mark(400)}</div>
-        <div style="margin-top:36px;font-family:Prata,serif;font-size:32px;line-height:1.3;color:#7d652c">Moda que valoriza você.</div>
-        <div style="margin-top:20px;font-size:16px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#625a4c">Moda feminina em Maringá PR</div>
+        ${mark(420)}
+        <div style="margin-top:36px;font-family:Prata,serif;font-size:32px;line-height:1.3;color:#ecd8b1">Moda que valoriza você.</div>
+        <div style="margin-top:20px;font-size:16px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#c9bfae">Moda feminina em Maringá PR</div>
       </div>
       <img src="file://${path.join(out, photo)}" style="width:580px;height:630px;object-fit:cover;object-position:50% 20%;display:block" alt="">
     </div>`,

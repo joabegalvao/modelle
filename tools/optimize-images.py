@@ -8,9 +8,8 @@ Requer Pillow (pip install pillow) e a pasta materiais-de-origem/. Os
 originais nunca são alterados. Para trocar uma foto, substitua o arquivo de
 origem ou edite a lista PHOTOS e rode o script novamente.
 
-O logo recebido tem só 150 px e fundo dourado; a página usa o letreiro
-vetorizado em tools/logo/letreiro.svg. Os ícones e a imagem de
-compartilhamento saem de:
+O logo usado é o PNG transparente (letreiro branco com relevo). Os ícones e
+a imagem de compartilhamento saem de:
     node tools/render-compartilhamento.js
 """
 from pathlib import Path
@@ -20,6 +19,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES = ROOT / "materiais-de-origem"
 SRC = SOURCES / "fotos"
+LOGO_SRC = SOURCES / "logo" / "modelle-transparente.png"
 OUT = ROOT / "assets" / "img"
 
 # Nada é ampliado: a maior versão gerada é a do recorte original.
@@ -66,8 +66,27 @@ def build_photos() -> None:
         save_set(Image.open(SRC / source).convert("RGB").crop(area), name)
 
 
+def build_logo() -> None:
+    """O logo veio em PNG de 2146x733 px, letreiro branco com relevo sobre fundo
+    transparente. O script só recorta a margem vazia e gera as larguras usadas
+    na página (o cabeçalho mostra até 150 px; 720 px cobre telas de densidade 3x)."""
+    logo = Image.open(LOGO_SRC).convert("RGBA")
+    box = logo.getchannel("A").point(lambda v: 255 if v > 20 else 0).getbbox()
+    margin = 6
+    mark = logo.crop((
+        max(0, box[0] - margin), max(0, box[1] - margin),
+        min(logo.width, box[2] + margin), min(logo.height, box[3] + margin),
+    ))
+    for width in (720, 360):
+        out = resize_to_width(mark, width)
+        out.save(OUT / f"logo-modelle-{width}.png", optimize=True)
+        out.save(OUT / f"logo-modelle-{width}.webp", "WEBP", quality=92, method=6)
+    print(f"logo-modelle: {mark.width}x{mark.height} (salvo em 720 e 360)")
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     build_photos()
+    build_logo()
     total = sum(f.stat().st_size for f in OUT.iterdir())
     print(f"{len(list(OUT.iterdir()))} arquivos, {total / 1024:.0f} KB no total")
