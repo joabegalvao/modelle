@@ -8,8 +8,9 @@ Requer Pillow (pip install pillow) e a pasta materiais-de-origem/. Os
 originais nunca são alterados. Para trocar uma foto, substitua o arquivo de
 origem ou edite a lista PHOTOS e rode o script novamente.
 
-A imagem de compartilhamento (1200x630) é montada pelo Chromium, com as
-fontes do site, por outro script:
+O logo recebido tem só 150 px e fundo dourado; a página usa o letreiro
+vetorizado em tools/logo/letreiro.svg. Os ícones e a imagem de
+compartilhamento saem de:
     node tools/render-compartilhamento.js
 """
 from pathlib import Path
@@ -19,7 +20,6 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES = ROOT / "materiais-de-origem"
 SRC = SOURCES / "fotos"
-LOGO_SRC = SOURCES / "logo" / "Modelle Logo.jpg"
 OUT = ROOT / "assets" / "img"
 
 # Nada é ampliado: a maior versão gerada é a do recorte original.
@@ -66,25 +66,8 @@ def build_photos() -> None:
         save_set(Image.open(SRC / source).convert("RGB").crop(area), name)
 
 
-def build_logo() -> None:
-    """O logo veio em JPG de 150x150 px (quadrado dourado com o nome em
-    branco). Ele é usado no tamanho natural: no cabeçalho aparece com até
-    50 px de largura, o que fica nítido até em telas de densidade 3x.
-    Não é ampliado."""
-    logo = Image.open(LOGO_SRC).convert("RGB")
-    logo.save(OUT / "logo-modelle-150.png", optimize=True)
-    logo.save(OUT / "logo-modelle-150.webp", "WEBP", quality=90, method=6)
-    print(f"logo-modelle: {logo.width}x{logo.height}")
-
-    # Ícones: o favicon cabe no original; os de 180 e 192 px são a única
-    # exceção à regra de não ampliar (1,2 e 1,3 vezes), por serem ícones.
-    for name, size in (("favicon-32", 32), ("apple-touch-icon", 180), ("icon-192", 192)):
-        logo.resize((size, size), Image.LANCZOS).save(OUT / f"{name}.png", optimize=True)
-
-
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     build_photos()
-    build_logo()
     total = sum(f.stat().st_size for f in OUT.iterdir())
     print(f"{len(list(OUT.iterdir()))} arquivos, {total / 1024:.0f} KB no total")

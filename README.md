@@ -85,7 +85,8 @@ dessas duas avaliações e diz isso no texto de apoio.
 
 ## Direção visual
 
-Vitrine de boutique: fundo creme (o brilho do logo), textos em marrom-café,
+Vitrine de boutique: fundo creme (o brilho do logo), o letreiro do logo sem o
+fundo dourado, textos em marrom-café,
 dourado só em detalhes finos (traços, moldura da foto do hero, estrelas,
 destaques dos títulos) e uma seção escura para as bolsas, onde o dourado das
 peças aparece melhor. Os looks ficam em duas fileiras de três fotos, "Para o
@@ -97,7 +98,7 @@ efeitos de vidro, sem emojis como ícones.
 
 | Ordem | Seção | Âncora | Conteúdo |
 | --- | --- | --- | --- |
-| 1 | Cabeçalho | | Logo, nome, navegação e CTA de WhatsApp. Fixo no topo |
+| 1 | Cabeçalho | | Letreiro do logo, navegação e CTA de WhatsApp. Fixo no topo |
 | 2 | Hero | `#inicio` | "Moda que valoriza você", dois botões, nota 5 no Google e foto da loja |
 | 3 | Looks | `#looks` | Duas fileiras de três fotos: dia a dia e ocasiões especiais, com botão e link para o Instagram |
 | 4 | Bolsas e acessórios | `#bolsas` | Seção escura com três fotos de bolsas de palha |
@@ -118,8 +119,9 @@ assets/css/styles.css            estilos (tokens de cor e tipografia no topo)
 assets/js/main.js                menu e revelação na rolagem
 assets/img/                      imagens otimizadas (geradas pelos scripts)
 assets/fonts/                    Prata e Outfit (arquivos locais)
-tools/optimize-images.py         gera assets/img a partir dos originais (fotos, logo, ícones)
-tools/render-compartilhamento.js monta a imagem de compartilhamento pelo Chromium
+tools/optimize-images.py         gera as fotos de assets/img a partir dos originais
+tools/logo/letreiro.svg          letreiro "Modelle" vetorizado a partir do logo, sem o fundo
+tools/render-compartilhamento.js gera os ícones e a imagem de compartilhamento pelo Chromium
 materiais-de-origem/             arquivos do cliente (só na pasta local, fora do git)
 ```
 
@@ -157,16 +159,23 @@ Observações:
 ### Logo
 
 O logo veio em JPG de 150 x 150 px: quadrado dourado metálico com o nome em
-letra cursiva branca. Como é um script específico, ele **não foi redesenhado
-nem vetorizado**: a página usa o arquivo no tamanho natural. No cabeçalho ele
-aparece com 46 px de largura (40 px em telas de até 359 px), o que fica nítido
-até em telas de densidade 3x; no rodapé, com 120 px; na imagem de
-compartilhamento, com 150 px. O nome "Modelle" ao lado do logo é texto, em
-Prata.
+letra cursiva branca. A pedido do cliente, a página **não usa o fundo
+dourado**: só o letreiro "Modelle", que foi vetorizado a partir do arquivo
+recebido (ampliado 8 vezes, suavizado e traçado com potrace) e está em
+`tools/logo/letreiro.svg`. O desenho das letras é o do logo; nada foi
+redesenhado. O letreiro é a mesma marca que aparece na parede da loja, na foto
+do hero.
 
-Ícones do site: o favicon de 32 px sai do original sem perda. Os ícones de
-180 e 192 px são a única exceção à regra de não ampliar (1,2 e 1,3 vezes),
-por serem ícones de atalho; um logo maior resolve isso.
+Por ser vetor com `fill="currentColor"`, ele toma a cor do lugar em que está:
+marrom-café no cabeçalho (40 px de altura no celular, 46 px no desktop, 34 px
+em telas de até 359 px), dourado claro no rodapé, marrom-café sobre creme nos
+ícones do site e na imagem de compartilhamento. Fica nítido em qualquer
+densidade de tela.
+
+Para trocar, substitua o `<path>` nos dois `<svg>` do `index.html` (classes
+`brand__mark` e `footer__mark`) e em `tools/logo/letreiro.svg`, e rode
+`node tools/render-compartilhamento.js`. O original está em
+`materiais-de-origem/logo/`.
 
 ## Como atualizar o conteúdo
 
@@ -193,8 +202,8 @@ Mensagens de WhatsApp, conforme o ponto da página:
 Para gerar as imagens (requer Pillow e a pasta `materiais-de-origem/`):
 
 ```bash
-python3 tools/optimize-images.py        # fotos, logo e ícones
-node tools/render-compartilhamento.js   # imagem de compartilhamento (requer Node e Playwright)
+python3 tools/optimize-images.py        # fotos
+node tools/render-compartilhamento.js   # ícones e imagem de compartilhamento (requer Node e Playwright)
 ```
 
 Se o Playwright não estiver instalado no projeto, informe os caminhos pelas
@@ -293,10 +302,12 @@ verificado se o número responde no WhatsApp.
 | Ajuste | Arquivos |
 | --- | --- |
 | Versão inicial da página | todos |
+| Logo sem o fundo dourado: letreiro vetorizado no cabeçalho, rodapé, ícones e imagem de compartilhamento | `index.html`, `styles.css`, `tools/`, `assets/img` |
 
 ## Créditos e licenças
 
-- Logo, fotos e avaliações: fornecidos pelo cliente.
+- Logo, fotos e avaliações: fornecidos pelo cliente. Letreiro vetorizado para
+  este projeto a partir do logo recebido.
 - Ícones: criados para este projeto. Ícone do WhatsApp: Simple Icons (CC0).
 - Prata e Outfit: SIL Open Font License 1.1, obtidas do Google Fonts e
   hospedadas localmente.
@@ -304,8 +315,8 @@ verificado se o número responde no WhatsApp.
 
 ## Pendências que dependem do cliente
 
-- **Logo em alta resolução ou em vetor.** O de 150 px basta para o cabeçalho,
-  mas limita os ícones de atalho e qualquer uso maior.
+- **Logo em alta resolução ou em vetor**, para conferir a vetorização do
+  letreiro (feita a partir de um arquivo de 150 px).
 - **Direito de uso das fotos de catálogo.** Nove das dez fotos parecem
   imagens dos fornecedores. Vale confirmar se a loja pode usá-las no site.
 - **Fotos da loja** (fachada, interior, provadores, vitrine) e das peças na
