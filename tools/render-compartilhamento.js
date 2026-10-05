@@ -20,12 +20,12 @@ const out = path.join(root, 'assets/img');
 const mark = (width) => `<img src="file://${path.join(out, 'logo-modelle-720.png')}" style="width:${width}px;height:auto;display:block" alt="">`;
 
 const fontFace = (family, file) => `@font-face { font-family: "${family}"; src: url("file://${path.join(root, 'assets/fonts', file)}") format("woff2"); font-weight: 300 900; }`;
-const fonts = [fontFace('Syne', 'syne-normal-latin.woff2'), fontFace('Figtree', 'figtree-normal-latin.woff2')].join('\n');
+const fonts = [fontFace('Prata', 'prata-normal-latin.woff2'), fontFace('Outfit', 'outfit-normal-latin.woff2')].join('\n');
 
 
 const icon = (size, width) => ({
   w: size, h: size,
-  html: `<div style="width:${size}px;height:${size}px;background:#141214;display:grid;place-items:center">${mark(width)}</div>`,
+  html: `<div style="width:${size}px;height:${size}px;background:#2a241c;display:grid;place-items:center">${mark(width)}</div>`,
 });
 
 const pages = {
@@ -34,17 +34,16 @@ const pages = {
   apple: { ...icon(180, 156), file: 'apple-touch-icon.png' },
   card: {
     w: 1200, h: 630, file: 'compartilhamento.jpg', jpeg: true,
-    html: `<div style="width:1200px;height:630px;display:grid;grid-template-columns:640px 560px;background:#141214;color:#fff;font-family:Figtree,sans-serif;overflow:hidden">
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:0 64px">
-        ${mark(240)}
-        <div style="margin-top:40px;font-family:Syne,sans-serif;font-weight:800;font-size:42px;line-height:.98;letter-spacing:-.02em;text-transform:uppercase">Seu próximo look<br><span style="color:#f0a9b8">já está na arara.</span></div>
-        <div style="margin-top:24px;font-size:19px;line-height:1.4;color:#bdb6b9">Roupas, bolsas e acessórios em Maringá.<br>Av. Mandacaru, 200. Mande a foto pelo WhatsApp.</div>
-        <div style="margin-top:26px;display:flex;align-items:center;gap:10px;font-family:Syne,sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#f0a9b8"><span style="display:inline-block;width:28px;height:3px;background:#f0a9b8"></span> Nota 5 no Google</div>
+    html: `<div style="width:1200px;height:630px;display:grid;grid-template-columns:600px 600px;background:#fdf7eb;color:#2a241c;font-family:Outfit,sans-serif;overflow:hidden">
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:0 64px;background:#2a241c;color:#fffdf9">
+        ${mark(250)}
+        <div style="margin-top:40px;font-family:Prata,serif;font-size:50px;line-height:1.1">Moda que<br><span style="color:#ecd8b1">valoriza você.</span></div>
+        <div style="margin-top:24px;font-size:19px;font-weight:300;line-height:1.45;color:#c9bfae">Roupas, bolsas e acessórios para o dia a dia<br>e ocasiões especiais. Av. Mandacaru, 200, Maringá.</div>
+        <div style="margin-top:26px;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#ecd8b1"><span style="display:inline-block;width:22px;height:1px;background:#c3aa6d"></span> Nota 5 no Google</div>
       </div>
-      <div style="position:relative;display:flex;gap:16px;align-items:flex-start;padding:0 48px 0 0">
-        <div style="position:absolute;left:-16px;right:0;top:56px;height:6px;background:#fff;border-radius:3px"></div>
-        <img src="file://${path.join(out, 'loja-vestido-floral-706.jpg')}" style="width:248px;height:480px;object-fit:cover;object-position:50% 20%;margin-top:92px;display:block" alt="">
-        <img src="file://${path.join(out, 'vestido-renda-rosa-704.jpg')}" style="width:248px;height:480px;object-fit:cover;object-position:50% 20%;margin-top:92px;display:block" alt="">
+      <div style="display:flex;gap:20px;align-items:center;justify-content:center;padding:0 40px">
+        <div style="position:relative;padding:8px;border:1px solid #c3aa6d"><img src="file://${path.join(out, 'loja-vestido-floral-706.jpg')}" style="width:232px;height:380px;object-fit:cover;object-position:50% 15%;display:block" alt=""></div>
+        <div style="position:relative;padding:8px;border:1px solid #c3aa6d;margin-top:-40px"><img src="file://${path.join(out, 'vestido-renda-rosa-704.jpg')}" style="width:232px;height:420px;object-fit:cover;object-position:50% 15%;display:block" alt=""></div>
       </div>
     </div>`,
   },

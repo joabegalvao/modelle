@@ -105,35 +105,39 @@ dessas duas avaliações e diz isso no texto de apoio.
 
 ## Direção visual
 
-**Versão 2 (05/10/2026): lookbook.** A Modelle e a Nanda Bella Beauty Clinic
+**Versão 3 (05/10/2026): vitrine.** A Modelle e a Nanda Bella Beauty Clinic
 são vizinhas de loja (mesmo endereço) e as duas páginas tinham o mesmo
 registro: fundo creme, serifa com segunda linha em itálico, foto à direita no
-hero. O cliente pediu que fossem inconfundíveis, e a Modelle foi refeita.
+hero, mesmo ritmo de seções. O cliente pediu que fossem inconfundíveis **sem
+mudar as cores**, porque o bege dourado é a cor da loja.
 
-Agora: preto e branco com tipografia grotesca pesada em caixa alta (Syne 800),
-rosé como acento (a cor que mais aparece nas peças da loja), uma **arara de
-looks** no hero (um varão preto com as fotos "penduradas", que desliza na
-horizontal), seções alternando branco, rosé e preto, dois blocos "Dia a dia" e
-"Ocasiões especiais" com foto de meia largura, nota 5,0 em corpo gigante e
-passos com números grandes. Cantos retos, botões em pílula, sem degradês, sem
-efeitos de vidro, sem emojis como ícones. O letreiro branco em relevo do logo
-continua sobre o preto do cabeçalho e do rodapé.
+Mantidos: a paleta (creme, dourado, café), as fontes (Prata + Outfit) e o
+letreiro branco sobre o café no cabeçalho e no rodapé. Mudou a composição:
+hero **centrado**, com o título em uma linha e, embaixo, **três vidros de
+vitrine** (fotos em molduras douradas finas, a do meio mais alta, como um
+manequim em destaque; no celular deslizam na horizontal); looks em **duas
+fileiras alternadas** (texto de um lado, duas fotos escalonadas do outro, a
+segunda fileira invertida); bolsas sobre o café com três molduras em alturas
+alternadas; avaliações **centradas**, com aspas grandes em Prata; passos com
+números em círculos dourados; fecho centrado.
 
-A versão 1 (vitrine de boutique em creme, dourado e café, Prata + Outfit) está
-no histórico do git, no commit anterior a esta mudança.
+Uma versão 2 (lookbook preto e branco com rosé, tipografia grotesca pesada)
+foi feita e **rejeitada** no mesmo dia ("ficou horrível"); está no histórico do
+git. A versão 1 (vitrine de boutique com a foto à direita) é o commit anterior
+a ela.
 
 ## Seções da página
 
 | Ordem | Seção | Âncora | Conteúdo |
 | --- | --- | --- | --- |
-| 1 | Cabeçalho | | Preto, fixo, com o letreiro branco, navegação em caixa alta e botão branco de WhatsApp |
-| 2 | Hero | `#inicio` | "Seu próximo look já está na arara", texto de apoio, botão preto, nota 5 no Google e a arara com cinco looks e um cartão para o Instagram |
-| 3 | Looks | `#looks` | Fundo rosé; dois blocos de meia largura: "Para o dia a dia" (branco, vestido verde) e "Para ocasiões especiais" (preto, vestido longo), cada um com lista de peças e link |
-| 4 | Bolsas e acessórios | `#bolsas` | Seção preta com três fotos de bolsas de palha em alturas alternadas |
-| 5 | Avaliações | `#avaliacoes` | "5,0" gigante, estrelas e os dois depoimentos em corpo grande |
-| 6 | Como comprar | `#como-comprar` | Fundo rosé; três passos com números grandes |
+| 1 | Cabeçalho | | Café, fixo, com o letreiro branco, navegação e botão dourado de WhatsApp |
+| 2 | Hero | `#inicio` | Centrado: "Moda que valoriza você", texto de apoio, dois botões, nota 5 no Google e a vitrine com três fotos em moldura dourada |
+| 3 | Looks | `#looks` | Fundo areia; fileira 01 "Para o dia a dia" (texto à esquerda, vestido verde e regatas) e fileira 02 "Para ocasiões especiais" (invertida, vestido longo e tricô); link para o Instagram |
+| 4 | Bolsas e acessórios | `#bolsas` | Seção café com três fotos de bolsas em molduras douradas, alturas alternadas |
+| 5 | Avaliações | `#avaliacoes` | Centrada: título, cinco estrelas e dois depoimentos em cartões com aspas douradas |
+| 6 | Como comprar | `#como-comprar` | Três passos com números em círculos dourados |
 | 7 | Onde fica | `#onde-fica` | Endereço, WhatsApp, Instagram e mapa |
-| 8 | Fecho | | "Mande a foto. A peça fica separada.", WhatsApp e Instagram |
+| 8 | Fecho | | Centrado: "Seu próximo look está na Av. Mandacaru", WhatsApp e Instagram |
 | 9 | Rodapé | | Logo, endereço, contato e redes |
 
 Componente de apoio: botão flutuante de WhatsApp, no canto inferior direito,
@@ -146,7 +150,7 @@ index.html                       conteúdo e SEO
 assets/css/styles.css            estilos (tokens de cor e tipografia no topo)
 assets/js/main.js                menu e revelação na rolagem
 assets/img/                      imagens otimizadas (geradas pelos scripts)
-assets/fonts/                    Syne e Figtree (arquivos locais)
+assets/fonts/                    Prata e Outfit (arquivos locais)
 tools/optimize-images.py         gera as fotos e o logo de assets/img a partir dos originais
 tools/render-compartilhamento.js gera os ícones e a imagem de compartilhamento pelo Chromium
 materiais-de-origem/             arquivos do cliente (só na pasta local, fora do git)
@@ -238,35 +242,35 @@ correspondente no `index.html`, para não haver salto de layout.
 
 ### Título do hero
 
-O título tem duas linhas no desktop ("Seu próximo look / já está na arara.")
-e três ou quatro no celular. O tamanho máximo (4,1rem) é o que faz "SEU
-PRÓXIMO LOOK" caber em 1144 px na Syne 800. Se o texto mudar, meça de novo:
-confira a quebra em 320, 768 e 1440 px. A regra está em `.hero__title`.
+"Moda que valoriza você." fica em uma linha de 768 px para cima e em duas no
+celular, centrado. Se o texto mudar, confira a quebra em 320 e 768 px. A regra
+está em `.hero__title`, no `styles.css`.
 
 ### Cache do navegador
 
-Os arquivos de estilo e script são chamados com versão: `styles.css?v=2` e
-`main.js?v=2`. Ao alterar um deles, aumente o número no `index.html` para que
+Os arquivos de estilo e script são chamados com versão: `styles.css?v=3` e
+`main.js?v=3`. Ao alterar um deles, aumente o número no `index.html` para que
 os visitantes recebam a versão nova.
 
 ## Identidade visual
 
-| Token | Cor | Uso |
+| Token | Cor | Origem |
 | --- | --- | --- |
-| `--ink` | `#141214` | preto quase puro: cabeçalho, seção "Bolsas", bloco "Ocasiões", fecho, rodapé, botões e títulos |
-| `--white`, `--paper` | `#FFFFFF`, `#F7F5F4` | fundos claros |
-| `--blush` | `#F6E3DE` | rosé claro: fundo das seções "Looks" e "Como comprar" e do cartão do Instagram |
-| `--rose` | `#B23A5E` | rosé escuro: destaques dos títulos, números, rótulos e estrelas sobre fundo claro (contraste AA) |
-| `--rose-light` | `#F0A9B8` | rosé claro: destaques sobre o preto |
-| `--ink-soft`, `--mist` | `#5C5659`, `#BDB6B9` | textos secundários sobre claro e sobre escuro |
-| `--line`, `--blush-deep`, `--ink-line` | `#E2DCDB`, `#ECC9C1`, `#2C282B` | linhas |
-| `--whatsapp` | `#25D366` | verde oficial do WhatsApp, só no botão flutuante |
+| `--gold` | `#C3AA6D` | dourado do logo: molduras das fotos, traços dos rótulos, estrelas, botão da seção escura |
+| `--gold-200` | `#ECD8B1` | dourado claro do logo: destaques sobre o escuro |
+| `--cream` | `#FDF7EB` | brilho do logo: fundo claro principal |
+| `--gold-700` | `#7D652C` | dourado escurecido: destaques dos títulos, números e rótulos sobre fundo claro (contraste AA) |
+| `--sand`, `--white`, `--line` | `#F4ECDC`, `#FFFDF9`, `#E6DCC8` | fundos claros alternados e linhas |
+| `--espresso`, `--espresso-700` | `#2A241C`, `#3B3225` | marrom-café: cabeçalho, seção "Bolsas", fecho, rodapé, botões e textos |
+| `--ink-soft`, `--mist` | `#625A4C`, `#C9BFAE` | textos secundários sobre claro e sobre escuro |
+| `--whatsapp` | `#25D366` | verde oficial do WhatsApp, usado só no botão flutuante |
 
-Tipografia: **Syne** (títulos, rótulos, botões; pesos 600 a 800) e
-**Figtree** (textos). A Syne 800 em caixa alta ocupa cerca de 1,07em por
-letra, por isso os títulos têm tamanhos máximos calculados para caber na
-coluna: 4,1rem no hero, 3rem nas seções, 3,1rem no fecho. Fontes locais em
-`assets/fonts`, subconjunto latino.
+O dourado puro não tem contraste para texto sobre fundo claro; por isso existe
+a versão escurecida (os números "01/02" das fileiras usam `--gold-700` por esse
+motivo). O único degradê da página é o do próprio logo.
+
+Tipografia: Prata (títulos) e Outfit (textos, peso leve). Prata não tem
+itálico; o destaque dos títulos é feito só pela cor.
 
 ## Decisões de conteúdo
 
@@ -294,7 +298,7 @@ coluna: 4,1rem no hero, 3rem nas seções, 3,1rem no fecho. Fontes locais em
 
 ## Testes realizados
 
-Executados em 30/09/2026 e repetidos em 05/10/2026 na versão 2 (41 verificações aprovadas: sem rolagem horizontal de 320 a 1920 px, título do hero em 2 linhas no desktop, contraste AA, menu no celular, teclado, sem JS, movimento reduzido, carga inicial abaixo de 700 KB, nenhuma imagem ampliada), em Chromium automatizado (Playwright).
+Executados em 30/09/2026 e repetidos em 05/10/2026 na versão 3 (41 verificações aprovadas: sem rolagem horizontal de 320 a 1920 px, título do hero em 1 linha no desktop, contraste AA, menu no celular, teclado, sem JS, movimento reduzido, carga inicial abaixo de 700 KB, nenhuma imagem ampliada), em Chromium automatizado (Playwright).
 
 - Revisão visual das capturas de tela: página inteira em 390 e 1440 px e
   primeira tela em 320, 768 e 1024 px.
@@ -328,13 +332,14 @@ verificado se o número responde no WhatsApp.
 | Versão inicial da página | todos |
 | Logo sem o fundo dourado: letreiro vetorizado no cabeçalho, rodapé, ícones e imagem de compartilhamento | `index.html`, `styles.css`, `tools/`, `assets/img` |
 | Logo em PNG transparente recebido: substitui o letreiro vetorizado; cabeçalho escuro | `index.html`, `styles.css`, `tools/`, `assets/img` |
-| **Versão 2 (05/10/2026)**: redesenho completo para diferenciar da Nanda Bella, vizinha de loja. Lookbook preto e branco com rosé, Syne + Figtree, arara de looks no hero, nova imagem de compartilhamento e ícones. Textos e dados mantidos; "Moda que valoriza você" fica no texto de apoio e no rodapé | `index.html`, `styles.css`, `assets/fonts`, `tools/render-compartilhamento.js`, `assets/img` |
+| Versão 2 (05/10/2026): lookbook preto e branco com rosé, Syne + Figtree, arara de looks. **Rejeitada pelo cliente** no mesmo dia | `index.html`, `styles.css`, `assets/fonts`, `tools/`, `assets/img` |
+| **Versão 3 (05/10/2026)**: mesma paleta e fontes da v1 (o bege dourado é a cor da loja), composição nova para diferenciar da Nanda Bella: hero centrado com vitrine de três fotos, fileiras alternadas, avaliações centradas. Nova imagem de compartilhamento | `index.html`, `styles.css`, `tools/render-compartilhamento.js`, `assets/img` |
 
 ## Créditos e licenças
 
 - Logo, fotos e avaliações: fornecidos pelo cliente.
 - Ícones: criados para este projeto. Ícone do WhatsApp: Simple Icons (CC0).
-- Syne e Figtree: SIL Open Font License 1.1, obtidas do Google Fonts e
+- Prata e Outfit: SIL Open Font License 1.1, obtidas do Google Fonts e
   hospedadas localmente.
 - Mapa: Google Maps, incorporado.
 
